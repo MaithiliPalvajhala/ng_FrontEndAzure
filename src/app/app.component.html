@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>Calculate monthly premium for Death cover</h2>
+  <br>
+  <form class="form-horizontal" #userForm="ngForm">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Name">Name:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="Name" placeholder="Enter Name" name="Name" [(ngModel)]="userdetails.name">
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Age">Age:</label>
+      <div class="col-sm-5">          
+        <input type="text" [(ngModel)]="userdetails.age" class="form-control" id="Age" placeholder="Enter Age" name="age">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="dateofbirth">Date of Birth:</label>
+      <div class="col-sm-5">          
+        <input type="datetime" [(ngModel)]="userdetails.dob" class="form-control" id="dob" name="dob" >
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="DeathSumInsured">Death Cover Sum Insured:</label>
+      <div class="col-sm-5">          
+        <input type="text" [(ngModel)]="userdetails.deathcoversum" class="form-control" id="DeathSumInsured" name="deathsumInsured" placeholder="Enter Death cover sum insured">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Occupation">Occupation:</label>
+      <div class="col-sm-5">  
+        <select class="custom-select form-control" (change)="calculateDeathPremium($event)" >
+          <option selected>Select Occupation</option>
+          <option *ngFor="let occ of occupations" value={{occ}} name="occ">{{occ}}</option>
+        </select>        
+      </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="MonthlyPremium">Monthly Premium :</label>
+      <div class="col-sm-5">          
+        <input type="text" [(ngModel)]="userdetails.MonthlyPremium" class="form-control" id="MonthlyPremium" name="monthly" placeholder="Enter Death cover sum insured">
+      </div>
+    </div>
+  </form>
+</div>
