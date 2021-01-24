@@ -1,6 +1,10 @@
 # CalculatePremium
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+In this project, WebAPI call fetches the occupations list (drop-down) and the occupation rating factor when occupation(drop-down) is selected.
+The WebAPI is currently hosted in Azure. The code base for this WebAPI is present at "https://github.com/MaithiliPalvajhala/CalculatePremium"
+The data required, OccupationRating and OccupationRatingFactor tables are created and maintained in SQL Server. This also has been uploaded to Azure SQL. The commands used to create this DataBase are at : https://github.com/MaithiliPalvajhala/CalculatePremium_Documents . This share also consists of design documents.
+Unit testing project is included in WebAPI for various expected inputs.
 
 ## Development server
 
