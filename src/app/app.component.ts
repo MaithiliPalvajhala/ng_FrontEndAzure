@@ -3,6 +3,7 @@ import {User} from './user-details';
 import {CalcPremiumService} from './services/calc-premium.service';
 import {FormGroup, NgForm} from '@angular/forms';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,8 +12,8 @@ import {FormGroup, NgForm} from '@angular/forms';
 export class AppComponent {
   selectedvalue:string = "default value";
   returnValue:string="";
-  OccupationFactor: number = 0;
-  occupations="";
+  OccupationFactor: any;
+  occupations:string[];
   userdetails = new User('',0,'',0,'',0);
 
 
@@ -20,13 +21,20 @@ export class AppComponent {
   calculateDeathPremium(event: any, form: any)
     {
       if(form.valid){
-        this.userdetails.occupation=event.target.value;
-        this.calcPremiumService.CalculateDeathPremium(event.target.value).subscribe(res=> {
-          this.OccupationFactor=Number(res.text());
-          console.log("Occupation Factor Value"+this.OccupationFactor); 
-          this.userdetails.MonthlyPremium = this.userdetails.age*this.userdetails.deathcoversum*this.OccupationFactor/12000;
-          this.userdetails.MonthlyPremium = Number(this.userdetails.MonthlyPremium.toPrecision(4));
-        }    );
+
+        this.OccupationFactor = Number(this.calcPremiumService.GetOccupationFactor(event.target.value));
+           this.userdetails.MonthlyPremium = this.userdetails.age*this.userdetails.deathcoversum*this.OccupationFactor/12000;
+           this.userdetails.MonthlyPremium = Number(this.userdetails.MonthlyPremium);
+       
+          //WebAPI call code
+       // this.userdetails.occupation=event.target.value;
+        //this.calcPremiumService.CalculateMonthlyPremium(event.target.value).subscribe(res=> {
+         //this.OccupationFactor=Number(res.text());
+          //console.log("Occupation Factor Value"+this.OccupationFactor); 
+          //this.userdetails.MonthlyPremium = this.userdetails.age*this.userdetails.deathcoversum*this.OccupationFactor/12000;
+          //this.userdetails.MonthlyPremium = Number(this.userdetails.MonthlyPremium.toPrecision(4));
+       // }    );
+           
       }
       else
       {
@@ -35,12 +43,13 @@ export class AppComponent {
     }
   constructor(private calcPremiumService : CalcPremiumService)
   {
-    console.log("before service call");
-    this.calcPremiumService.GetOccupations().subscribe(
-      res=> {
-          this.occupations = res.json();
-      }
-    );
+    this.occupations = this.calcPremiumService.GetOccupations();
+    //WebAPI Call
+    //this.calcPremiumService.GetOccupations().subscribe(
+      //res=> {
+        //  this.occupations = res.json();
+     // }
+    //);
   }
   currentYear = new Date().getFullYear();
   maxDate = new Date();
