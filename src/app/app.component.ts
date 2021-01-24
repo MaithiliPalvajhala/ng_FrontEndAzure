@@ -12,7 +12,7 @@ export class AppComponent {
   selectedvalue:string = "default value";
   returnValue:string="";
   OccupationFactor: number = 0;
-  occupations = ['Cleaner','Doctor','Author','Farmer','Mechanic','Florist']
+  occupations="";
   userdetails = new User('',0,'',0,'',0);
 
 
