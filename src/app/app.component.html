@@ -1,47 +1,63 @@
 <div class="container">
   <h2>Calculate monthly premium for Death cover</h2>
   <br>
-  <form class="form-horizontal" #userForm="ngForm">
-    <div class="form-group">
+  <form #f="ngForm">
+    <div class="form-group row">
       <label class="control-label col-sm-2" for="Name">Name:</label>
       <div class="col-sm-5">
-        <input type="text" class="form-control" id="Name" placeholder="Enter Name" name="Name" [(ngModel)]="userdetails.name">
+        <input type="text" class="form-control" required #name="ngModel" id="Name" [class.is-invalid]="name.touched && name.invalid" placeholder="Enter Name" name="Name" [(ngModel)]="userdetails.name">
+        <small class="text-danger" [class.d-none]="name.untouched || name.valid">Name is required</small>
       </div>
     </div>
-
-
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="Age">Age:</label>
-      <div class="col-sm-5">          
-        <input type="text" [(ngModel)]="userdetails.age" class="form-control" id="Age" placeholder="Enter Age" name="age">
+     
+    <div class="form-group row">
+      <label class="control-label col-sm-2" for="dateofbirth">Date of Birth:</label>
+      <div class="col-sm-5"> 
+        <mat-form-field>
+          <input matInput (dateChange)="changeDate(dat.value)" required #dat="ngModel" [class.is-invalid]="dat.untouched && dat.invalid" [(ngModel)]="userdetails.dob" [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="Choose a date" id="dateofbirth" name="dateofbirth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker ></mat-datepicker>
+        </mat-form-field>         
+        <!--<input type="datetime" [(ngModel)]="userdetails.dob" class="form-control" id="dob" name="dob" >-->
       </div>
     </div>
     
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="dateofbirth">Date of Birth:</label>
+
+    <div class="form-group row">
+      <label class="control-label col-sm-2" for="Age">Age(in years):</label>
       <div class="col-sm-5">          
-        <input type="datetime" [(ngModel)]="userdetails.dob" class="form-control" id="dob" name="dob" >
+        <input type="text" disabled #age="ngModel" required [(ngModel)]="userdetails.age" class="form-control" [class.is-invalid]="age.touched && age.invalid" placeholder="Enter Age" id="Age" name="Age" >
+        <small class="text-danger" [class.d-none]="age.untouched || age.valid">Age is required</small>
       </div>
     </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="DeathSumInsured">Death Cover Sum Insured:</label>
-      <div class="col-sm-5">          
-        <input type="text" [(ngModel)]="userdetails.deathcoversum" class="form-control" id="DeathSumInsured" name="deathsumInsured" placeholder="Enter Death cover sum insured">
-      </div>
-    </div>
-    <div class="form-group">
+
+
+   <div class="form-group row">
+     <label class="control-label col-sm-2" for="deathsumInsured">Death Cover Sum Insured:</label>
+     <div class="col-sm-5">
+       <input type="text" #deathsumInsured="ngModel" required [(ngModel)]="userdetails.deathcoversum " class="form-control" [class.is-invalid]="deathsumInsured.touched && deathsumInsured.invalid" placeholder="Enter Death Cover Sum Insured" id="deathsumInsured" name="deathsumInsured">
+       <small class="text-danger" [class.d-none]="deathsumInsured.untouched || deathsumInsured.valid">Sum Insured is required</small>
+     </div>
+   </div>
+
+    <div class="form-group row">
       <label class="control-label col-sm-2" for="Occupation">Occupation:</label>
       <div class="col-sm-5">  
-        <select class="custom-select form-control" (change)="calculateDeathPremium($event)" >
-          <option selected>Select Occupation</option>
+        <select required #occu="ngModel" type="submit" [class.is-invalid] ="occu.touched && occu.invalid" [(ngModel)]="userdetails.occupation" id="Occupation" name="Occupation" class="custom-select form-control" (change)="calculateDeathPremium($event,f)" >
           <option *ngFor="let occ of occupations" value={{occ}} name="occ">{{occ}}</option>
-        </select>        
+        </select>      
+        
+        <small class="text-danger" [class.d-none]="occu.untouched || occu.valid">Occupation is requried</small>
+
+        <div *ngIf="f.touched && f.invalid">
+          <small class="text-danger" [class.d-none]="f.untouched || f.valid" >Please enter all above values first</small>
+      </div> 
       </div>
     </div>
     <br>
     <br>
 
-    <div class="form-group">
+    <div class="form-group row">
       <label class="control-label col-sm-2" for="MonthlyPremium">Monthly Premium :</label>
       <div class="col-sm-5">          
         <input type="text" [(ngModel)]="userdetails.MonthlyPremium" class="form-control" id="MonthlyPremium" name="monthly" placeholder="Enter Death cover sum insured">
