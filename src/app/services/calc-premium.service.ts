@@ -14,23 +14,13 @@ constructor(public http:Http) {
 
   GetOccupationFactor(occ : string){  
 
-    var ratingObj = Data.OccupationRating.find(item=>item.Occupation===occ);
-    var factorobj = Data.OccupationRatingFactor.find(item=>item.Rating===ratingObj?.Rating!)
-    return factorobj?.Factor!;
-    //WebAPI call
-   // return this.http.get('https://localhost:44335/api/calculatepremium?occupation='+occ); 
+   return this.http.get('https://calculatepremiumwebapi.azurewebsites.net/api/calculatepremium?occupation='+occ); 
 
   }  
 
   GetOccupations()
   {
-    var Occupations : string[];
-    Occupations=[];
-    
-    Data.OccupationRating.forEach(item=>Occupations.push(item.Occupation));
-    return Occupations;
-    //WebAPI call
-    //return this.http.get('https://localhost:44335/api/calculatepremium'); 
+    return this.http.get('https://calculatepremiumwebapi.azurewebsites.net/api/calculatepremium'); 
     
   }
 }

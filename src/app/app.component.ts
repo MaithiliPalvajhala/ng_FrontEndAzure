@@ -22,18 +22,13 @@ export class AppComponent {
     {
       if(form.valid){
 
-        this.OccupationFactor = Number(this.calcPremiumService.GetOccupationFactor(event.target.value));
-           this.userdetails.MonthlyPremium = this.userdetails.age*this.userdetails.deathcoversum*this.OccupationFactor/12000;
-           this.userdetails.MonthlyPremium = Number(this.userdetails.MonthlyPremium);
-       
-          //WebAPI call code
-       // this.userdetails.occupation=event.target.value;
-        //this.calcPremiumService.CalculateMonthlyPremium(event.target.value).subscribe(res=> {
-         //this.OccupationFactor=Number(res.text());
-          //console.log("Occupation Factor Value"+this.OccupationFactor); 
-          //this.userdetails.MonthlyPremium = this.userdetails.age*this.userdetails.deathcoversum*this.OccupationFactor/12000;
-          //this.userdetails.MonthlyPremium = Number(this.userdetails.MonthlyPremium.toPrecision(4));
-       // }    );
+       this.userdetails.occupation=event.target.value;
+        this.calcPremiumService.GetOccupationFactor(event.target.value).subscribe(res=> {
+         this.OccupationFactor=Number(res.text());
+          console.log("Occupation Factor Value"+this.OccupationFactor); 
+          this.userdetails.MonthlyPremium = this.userdetails.age*this.userdetails.deathcoversum*this.OccupationFactor/12000;
+          this.userdetails.MonthlyPremium = Number(this.userdetails.MonthlyPremium.toPrecision(4));
+       }    );
            
       }
       else
@@ -43,13 +38,12 @@ export class AppComponent {
     }
   constructor(private calcPremiumService : CalcPremiumService)
   {
-    this.occupations = this.calcPremiumService.GetOccupations();
-    //WebAPI Call
-    //this.calcPremiumService.GetOccupations().subscribe(
-      //res=> {
-        //  this.occupations = res.json();
-     // }
-    //);
+    this.occupations=[];
+    this.calcPremiumService.GetOccupations().subscribe(
+      res=> {
+        this.occupations = res.json();
+      }
+    );
   }
   currentYear = new Date().getFullYear();
   maxDate = new Date();
