@@ -35,7 +35,7 @@
    <div class="form-group row">
      <label class="control-label col-sm-2" for="deathsumInsured">Death Cover Sum Insured:</label>
      <div class="col-sm-5">
-       <input type="text" #deathsumInsured="ngModel" required [(ngModel)]="userdetails.deathcoversum " class="form-control" [class.is-invalid]="deathsumInsured.touched && deathsumInsured.invalid" placeholder="Enter Death Cover Sum Insured" id="deathsumInsured" name="deathsumInsured">
+      <input type="text" #deathsumInsured="ngModel" (blur)="formatCurrency($event)" required [(ngModel)]="userdetails.deathcoversum" class="form-control" [class.is-invalid]="deathsumInsured.touched && deathsumInsured.invalid" placeholder="Enter Death Cover Sum Insured" id="deathsumInsured" name="deathsumInsured">
        <small class="text-danger" [class.d-none]="deathsumInsured.untouched || deathsumInsured.valid">Sum Insured is required</small>
      </div>
    </div>
@@ -60,7 +60,9 @@
     <div class="form-group row">
       <label class="control-label col-sm-2" for="MonthlyPremium">Monthly Premium :</label>
       <div class="col-sm-5">          
-        <input type="text" [(ngModel)]="userdetails.MonthlyPremium" class="form-control" id="MonthlyPremium" name="monthly" placeholder="Enter Death cover sum insured">
+        <!--<input type="text" [(ngModel)]="userdetails.MonthlyPremium" class="form-control"  placeholder="Enter Death cover sum insured">-->
+
+        <label id="MonthlyPremium" name="monthly" >{{userdetails.MonthlyPremium}}</label>
       </div>
     </div>
   </form>

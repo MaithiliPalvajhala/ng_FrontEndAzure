@@ -3,9 +3,9 @@ export class User {
         public name: string,
         public age: number,
         public dob : string,
-        public deathcoversum: number,
+        public deathcoversum: string,
         public occupation: string,
-        public MonthlyPremium:number
+        public MonthlyPremium:string
 
     ){}
 }

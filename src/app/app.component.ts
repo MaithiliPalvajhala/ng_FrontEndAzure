@@ -14,7 +14,7 @@ export class AppComponent {
   returnValue:string="";
   OccupationFactor: any;
   occupations:string[];
-  userdetails = new User('',0,'',0,'',0);
+  userdetails = new User('',0,'','','','');
 
 
 
@@ -25,9 +25,11 @@ export class AppComponent {
        this.userdetails.occupation=event.target.value;
         this.calcPremiumService.GetOccupationFactor(event.target.value).subscribe(res=> {
          this.OccupationFactor=Number(res.text());
-          console.log("Occupation Factor Value"+this.OccupationFactor); 
-          this.userdetails.MonthlyPremium = this.userdetails.age*this.userdetails.deathcoversum*this.OccupationFactor/12000;
-          this.userdetails.MonthlyPremium = Number(this.userdetails.MonthlyPremium.toPrecision(4));
+          var cover = Number(this.userdetails.deathcoversum.replace(/[^0-9.-]+/g,""));
+          var monthPremium = this.userdetails.age*cover*this.OccupationFactor/12000;
+          monthPremium = Number(monthPremium.toFixed(2));
+          this.userdetails.MonthlyPremium= new Intl.NumberFormat('en-AU',{style: 'currency', currency:'AUD'}).format(monthPremium);
+           //document.getElementById(lblMonthly)?.innerHTML=this.userdetails.MonthlyPremium;
        }    );
            
       }
@@ -62,6 +64,13 @@ export class AppComponent {
     }
 
     this.userdetails.age=age;
+  }
+
+  formatCurrency(event : any)
+  {
+    var format = new Intl.NumberFormat('en-AU',{style: 'currency', currency:'AUD'}).format(event.target.value);
+    this.userdetails.deathcoversum = format;
+
   }
   
 }
