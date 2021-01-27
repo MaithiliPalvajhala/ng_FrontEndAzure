@@ -8,16 +8,32 @@ Unit testing project is included in WebAPI for various expected inputs.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+install dependencies :
+npm install @angular/http
+npm install currency-formatter --save
+ng add @angular/material
 
-## Code scaffolding
+creating new components - service and class
+ng new CalculateDeathCoverPremium
+ng g c userDetails
+ng g service services\CalcPremium
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Git related commands:
+git config --global user.name "Maithili Palavajhala" 
+git config --global user.email maithili.palavajhala@gmail.com 
+git log
+git init
+git remote add origin https://github.com/MaithiliPalvajhala/ng-FrontEnd.git 
+ng add angular-cli-ghpages.
 
-## Build
+using Visual Studio Code, source control explores, added changes to "staged changes". Then added description for changes and click on "commit".
+git push origin master
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Further help
+---building and publishing in GitHub.
+ng build --prod --base-href "https://MaithiliPalvajhala.github.io/ng-FrontEnd/"
+ngh --dir dist/CalculatePremium
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+ng build (for development server)
+Run `ng serve -o` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
